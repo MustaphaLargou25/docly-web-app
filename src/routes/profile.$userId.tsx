@@ -66,7 +66,7 @@ function PublicProfilePage() {
               <div className="flex items-center gap-2"><GraduationCap className="h-4 w-4 text-muted-foreground" /> {currentUser.program}</div>
               <div className="flex items-center gap-2"><MapPin className="h-4 w-4 text-muted-foreground" /> {currentUser.university}</div>
               <div className="flex items-center gap-2"><Calendar className="h-4 w-4 text-muted-foreground" /> Joined {currentUser.joined}</div>
-              <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-muted-foreground" /> {currentUser.email}</div>
+              <Button variant="outline" size="sm" asChild className="mt-1"><Link to="/messages"><Mail className="h-4 w-4 me-2" /> Send message</Link></Button>
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
               {Object.entries(currentUser.socials).map(([k, v]) => (
