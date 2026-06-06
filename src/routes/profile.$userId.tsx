@@ -9,6 +9,37 @@ import { documents, posts, topContributors, currentUser } from "@/lib/mock-data"
 import { ExternalLink, Mail, MapPin, GraduationCap, Calendar } from "lucide-react";
 
 export const Route = createFileRoute("/profile/$userId")({
+  head: ({ params }) => {
+    const user = topContributors.find((u) => u.id === params.userId) ?? { id: params.userId, name: "Student", initials: "S", points: 0 };
+    const title = `${user.name} \u2014 Docly profile`;
+    const desc = `${user.name} on Docly: ${user.points} points, contributing course notes and answers to the student community.`;
+    const url = `https://docly-web-app.lovable.app/profile/${params.userId}`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: desc },
+        { property: "og:title", content: title },
+        { property: "og:description", content: desc },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "profile" },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [{
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ProfilePage",
+          mainEntity: {
+            "@type": "Person",
+            name: user.name,
+            description: currentUser.bio,
+            affiliation: { "@type": "EducationalOrganization", name: currentUser.university },
+            url,
+          },
+        }),
+      }],
+    };
+  },
   component: PublicProfilePage,
 });
 

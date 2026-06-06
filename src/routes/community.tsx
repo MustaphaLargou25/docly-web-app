@@ -20,6 +20,21 @@ export const Route = createFileRoute("/community")({
       { property: "og:url", content: "https://docly-web-app.lovable.app/community" },
     ],
     links: [{ rel: "canonical", href: "https://docly-web-app.lovable.app/community" }],
+    scripts: [{
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: questions.map((q) => ({
+          "@type": "Question",
+          name: q.title,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: `${q.answers} answers from the Docly student community.`,
+          },
+        })),
+      }),
+    }],
   }),
   component: CommunityPage,
 });
