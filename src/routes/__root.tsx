@@ -96,6 +96,33 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap",
       },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Docly",
+          url: "https://docly-web-app.lovable.app",
+          description: "By students. For students. Share course notes, ask questions, and earn points with the Docly student community.",
+          potentialAction: {
+            "@type": "SearchAction",
+            target: "https://docly-web-app.lovable.app/search?q={search_term_string}",
+            "query-input": "required name=search_term_string",
+          },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Docly",
+          url: "https://docly-web-app.lovable.app",
+          slogan: "By students. For students.",
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
