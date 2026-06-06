@@ -13,9 +13,9 @@ export function PostCard({ post }: { post: { id: string; author: string; initial
       </header>
       <p className="text-[14px] leading-relaxed mb-3">{post.content}</p>
       <div className="flex items-center gap-4 text-muted-foreground">
-        <button className="inline-flex items-center gap-1.5 text-[12px] hover:text-primary"><Heart className="h-4 w-4" /> {post.likes}</button>
-        <button className="inline-flex items-center gap-1.5 text-[12px] hover:text-primary"><MessageSquare className="h-4 w-4" /> {post.comments}</button>
-        <button className="inline-flex items-center gap-1.5 text-[12px] hover:text-primary ms-auto"><Share2 className="h-4 w-4" /></button>
+        <button aria-label={`Like post (${post.likes} likes)`} className="inline-flex items-center gap-1.5 text-[12px] hover:text-primary"><Heart className="h-4 w-4" /> {post.likes}</button>
+        <button aria-label={`Comment on post (${post.comments} comments)`} className="inline-flex items-center gap-1.5 text-[12px] hover:text-primary"><MessageSquare className="h-4 w-4" /> {post.comments}</button>
+        <button aria-label="Share post" className="inline-flex items-center gap-1.5 text-[12px] hover:text-primary ms-auto"><Share2 className="h-4 w-4" /></button>
       </div>
     </article>
   );
