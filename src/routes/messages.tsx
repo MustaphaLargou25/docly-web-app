@@ -5,6 +5,16 @@ import { contacts } from "@/lib/mock-data";
 import { Search } from "lucide-react";
 
 export const Route = createFileRoute("/messages")({
+  head: () => ({
+    meta: [
+      { title: "Messages \u2014 Docly" },
+      { name: "description", content: "Chat directly with classmates and study partners on Docly." },
+      { property: "og:title", content: "Messages \u2014 Docly" },
+      { property: "og:description", content: "Chat directly with classmates and study partners on Docly." },
+      { property: "og:url", content: "https://docly-web-app.lovable.app/messages" },
+    ],
+    links: [{ rel: "canonical", href: "https://docly-web-app.lovable.app/messages" }],
+  }),
   component: MessagesPage,
 });
 

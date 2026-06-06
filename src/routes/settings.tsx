@@ -8,6 +8,16 @@ import { useTheme } from "@/lib/theme";
 import { Moon, Sun } from "lucide-react";
 
 export const Route = createFileRoute("/settings")({
+  head: () => ({
+    meta: [
+      { title: "Settings \u2014 Docly" },
+      { name: "description", content: "Manage your Docly preferences: language (EN, FR, AR), theme, and notification settings." },
+      { property: "og:title", content: "Settings \u2014 Docly" },
+      { property: "og:description", content: "Manage your Docly preferences: language (EN, FR, AR), theme, and notification settings." },
+      { property: "og:url", content: "https://docly-web-app.lovable.app/settings" },
+    ],
+    links: [{ rel: "canonical", href: "https://docly-web-app.lovable.app/settings" }],
+  }),
   component: SettingsPage,
 });
 

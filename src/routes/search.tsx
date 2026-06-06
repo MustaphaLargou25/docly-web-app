@@ -11,6 +11,16 @@ import { z } from "zod";
 const searchSchema = z.object({ q: z.string().optional() });
 
 export const Route = createFileRoute("/search")({
+  head: () => ({
+    meta: [
+      { title: "Search documents & students \u2014 Docly" },
+      { name: "description", content: "Search across course documents, students, and subjects shared by the Docly student community." },
+      { property: "og:title", content: "Search documents & students \u2014 Docly" },
+      { property: "og:description", content: "Search across course documents, students, and subjects shared by the Docly student community." },
+      { property: "og:url", content: "https://docly-web-app.lovable.app/search" },
+    ],
+    links: [{ rel: "canonical", href: "https://docly-web-app.lovable.app/search" }],
+  }),
   validateSearch: searchSchema,
   component: SearchPage,
 });

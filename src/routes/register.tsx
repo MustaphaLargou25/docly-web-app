@@ -8,6 +8,16 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/register")({
+  head: () => ({
+    meta: [
+      { title: "Create your Docly account" },
+      { name: "description", content: "Join Docly \u2014 the student community to share course notes, ask questions, and earn points." },
+      { property: "og:title", content: "Create your Docly account" },
+      { property: "og:description", content: "Join Docly \u2014 the student community to share course notes, ask questions, and earn points." },
+      { property: "og:url", content: "https://docly-web-app.lovable.app/register" },
+    ],
+    links: [{ rel: "canonical", href: "https://docly-web-app.lovable.app/register" }],
+  }),
   component: RegisterPage,
 });
 

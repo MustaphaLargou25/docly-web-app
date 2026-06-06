@@ -13,6 +13,16 @@ import { toast } from "sonner";
 import { modules } from "@/lib/mock-data";
 
 export const Route = createFileRoute("/upload")({
+  head: () => ({
+    meta: [
+      { title: "Upload a document \u2014 Docly" },
+      { name: "description", content: "Publish course notes, summaries, or past exams on Docly and earn points by helping classmates." },
+      { property: "og:title", content: "Upload a document \u2014 Docly" },
+      { property: "og:description", content: "Publish course notes, summaries, or past exams on Docly and earn points by helping classmates." },
+      { property: "og:url", content: "https://docly-web-app.lovable.app/upload" },
+    ],
+    links: [{ rel: "canonical", href: "https://docly-web-app.lovable.app/upload" }],
+  }),
   component: UploadPage,
 });
 

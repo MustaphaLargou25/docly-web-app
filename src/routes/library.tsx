@@ -5,6 +5,16 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { documents, currentUser } from "@/lib/mock-data";
 
 export const Route = createFileRoute("/library")({
+  head: () => ({
+    meta: [
+      { title: "My library \u2014 Docly" },
+      { name: "description", content: "Your downloaded, uploaded, and saved course documents on Docly, organized in one library." },
+      { property: "og:title", content: "My library \u2014 Docly" },
+      { property: "og:description", content: "Your downloaded, uploaded, and saved course documents on Docly, organized in one library." },
+      { property: "og:url", content: "https://docly-web-app.lovable.app/library" },
+    ],
+    links: [{ rel: "canonical", href: "https://docly-web-app.lovable.app/library" }],
+  }),
   component: LibraryPage,
 });
 

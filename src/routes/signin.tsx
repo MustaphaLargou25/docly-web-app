@@ -7,6 +7,16 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/signin")({
+  head: () => ({
+    meta: [
+      { title: "Sign in \u2014 Docly" },
+      { name: "description", content: "Sign in to your Docly account to access your library, community feed, and uploads." },
+      { property: "og:title", content: "Sign in \u2014 Docly" },
+      { property: "og:description", content: "Sign in to your Docly account to access your library, community feed, and uploads." },
+      { property: "og:url", content: "https://docly-web-app.lovable.app/signin" },
+    ],
+    links: [{ rel: "canonical", href: "https://docly-web-app.lovable.app/signin" }],
+  }),
   component: SignInPage,
 });
 

@@ -6,6 +6,16 @@ import { Settings, Bell, LifeBuoy, LogOut, ChevronRight, UserPen, Sparkles } fro
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/profile")({
+  head: () => ({
+    meta: [
+      { title: "Your profile \u2014 Docly" },
+      { name: "description", content: "View your Docly profile: stats, points, uploads, downloads, and ranking among student contributors." },
+      { property: "og:title", content: "Your profile \u2014 Docly" },
+      { property: "og:description", content: "View your Docly profile: stats, points, uploads, downloads, and ranking among student contributors." },
+      { property: "og:url", content: "https://docly-web-app.lovable.app/profile" },
+    ],
+    links: [{ rel: "canonical", href: "https://docly-web-app.lovable.app/profile" }],
+  }),
   component: ProfilePage,
 });
 
