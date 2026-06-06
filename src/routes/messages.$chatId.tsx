@@ -7,6 +7,23 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/messages/$chatId")({
+  head: ({ params }) => {
+    const contact = contacts.find((c) => c.id === params.chatId);
+    const name = contact?.name ?? "Chat";
+    const title = `Chat with ${name} — Docly`;
+    const description = `Private conversation with ${name} on Docly — share course notes, ask questions, and collaborate.`;
+    const url = `https://docly-web-app.lovable.app/messages/${params.chatId}`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: url },
+      ],
+      links: [{ rel: "canonical", href: url }],
+    };
+  },
   component: ChatPage,
 });
 

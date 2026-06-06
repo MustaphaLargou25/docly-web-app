@@ -33,14 +33,23 @@ function LibraryPage() {
           <TabsTrigger value="saved" className="rounded-full px-5 py-1.5 text-[13px] data-[state=active]:bg-background">Saved</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="downloads" className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {documents.filter((d) => !d.locked).slice(0, 4).map((d) => <DocumentCard key={d.id} doc={d} />)}
+        <TabsContent value="downloads">
+          <h2 className="sr-only">Downloads</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {documents.filter((d) => !d.locked).slice(0, 4).map((d) => <DocumentCard key={d.id} doc={d} />)}
+          </div>
         </TabsContent>
-        <TabsContent value="uploads" className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {documents.slice(0, 3).map((d) => <DocumentCard key={d.id} doc={d} />)}
+        <TabsContent value="uploads">
+          <h2 className="sr-only">Uploads</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {documents.slice(0, 3).map((d) => <DocumentCard key={d.id} doc={d} />)}
+          </div>
         </TabsContent>
-        <TabsContent value="saved" className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {documents.slice(2, 5).map((d) => <DocumentCard key={d.id} doc={d} />)}
+        <TabsContent value="saved">
+          <h2 className="sr-only">Saved</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {documents.slice(2, 5).map((d) => <DocumentCard key={d.id} doc={d} />)}
+          </div>
         </TabsContent>
       </Tabs>
     </AppLayout>
