@@ -11,6 +11,16 @@ import { useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
+  head: () => ({
+    meta: [
+      { title: "Docly — Share notes & ace your courses" },
+      { name: "description", content: "Docly is the student community for sharing course notes, asking questions, and earning points by helping classmates. By students. For students." },
+      { property: "og:title", content: "Docly — Share notes & ace your courses" },
+      { property: "og:description", content: "Share course notes, ask questions, and earn points with the Docly student community." },
+      { property: "og:url", content: "https://docly-web-app.lovable.app/" },
+    ],
+    links: [{ rel: "canonical", href: "https://docly-web-app.lovable.app/" }],
+  }),
 });
 
 function HomePage() {
@@ -20,6 +30,8 @@ function HomePage() {
 
   return (
     <AppLayout>
+      <h1 className="sr-only">Docly — The student community for sharing course notes and study resources</h1>
+
       {/* Greeting */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
