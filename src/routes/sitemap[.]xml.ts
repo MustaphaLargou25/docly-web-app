@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { contacts } from "@/lib/mock-data";
 
 const BASE_URL = "https://docly-web-app.lovable.app";
 
@@ -19,9 +20,14 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/library", changefreq: "weekly", priority: "0.7" },
           { path: "/community", changefreq: "daily", priority: "0.8" },
           { path: "/upload", changefreq: "monthly", priority: "0.5" },
+          { path: "/messages", changefreq: "weekly", priority: "0.4" },
+          { path: "/notifications", changefreq: "weekly", priority: "0.4" },
+          { path: "/profile", changefreq: "weekly", priority: "0.5" },
+          { path: "/settings", changefreq: "monthly", priority: "0.3" },
           { path: "/signin", changefreq: "yearly", priority: "0.3" },
           { path: "/register", changefreq: "yearly", priority: "0.3" },
           { path: "/onboarding", changefreq: "yearly", priority: "0.3" },
+          ...contacts.map((c) => ({ path: `/messages/${c.id}`, changefreq: "weekly" as const, priority: "0.3" })),
         ];
 
         const urls = entries.map((e) =>
