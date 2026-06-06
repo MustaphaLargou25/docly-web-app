@@ -84,8 +84,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "Docly — By students. For students." },
       { name: "twitter:description", content: "Share course notes, ask questions, and earn points with the Docly student community." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5fe3549c-e0c6-487d-a796-e0351aa3f758/id-preview-22e0cac0--ad13c552-f4b9-44c5-8a19-654bdd2f283d.lovable.app-1779555712791.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5fe3549c-e0c6-487d-a796-e0351aa3f758/id-preview-22e0cac0--ad13c552-f4b9-44c5-8a19-654bdd2f283d.lovable.app-1779555712791.png" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/05d6b4b4-b579-486e-8c09-ec9373543811" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/05d6b4b4-b579-486e-8c09-ec9373543811" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
