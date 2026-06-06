@@ -4,6 +4,16 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { notifications } from "@/lib/mock-data";
 
 export const Route = createFileRoute("/notifications")({
+  head: () => ({
+    meta: [
+      { title: "Notifications \u2014 Docly" },
+      { name: "description", content: "Latest activity on your Docly account: follows, comments, downloads, and points earned." },
+      { property: "og:title", content: "Notifications \u2014 Docly" },
+      { property: "og:description", content: "Latest activity on your Docly account: follows, comments, downloads, and points earned." },
+      { property: "og:url", content: "https://docly-web-app.lovable.app/notifications" },
+    ],
+    links: [{ rel: "canonical", href: "https://docly-web-app.lovable.app/notifications" }],
+  }),
   component: NotificationsPage,
 });
 

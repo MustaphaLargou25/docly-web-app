@@ -11,6 +11,31 @@ import { toast } from "sonner";
 import { useState } from "react";
 
 export const Route = createFileRoute("/community")({
+  head: () => ({
+    meta: [
+      { title: "Community feed \u2014 Docly" },
+      { name: "description", content: "Browse student posts, ask questions, and join discussions in the Docly community feed." },
+      { property: "og:title", content: "Community feed \u2014 Docly" },
+      { property: "og:description", content: "Browse student posts, ask questions, and join discussions in the Docly community feed." },
+      { property: "og:url", content: "https://docly-web-app.lovable.app/community" },
+    ],
+    links: [{ rel: "canonical", href: "https://docly-web-app.lovable.app/community" }],
+    scripts: [{
+      type: "application/ld+json",
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: questions.map((q) => ({
+          "@type": "Question",
+          name: q.title,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: `${q.answers} answers from the Docly student community.`,
+          },
+        })),
+      }),
+    }],
+  }),
   component: CommunityPage,
 });
 

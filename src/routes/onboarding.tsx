@@ -6,6 +6,16 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/onboarding")({
+  head: () => ({
+    meta: [
+      { title: "Welcome to Docly" },
+      { name: "description", content: "Get started with Docly: by students, for students. Share notes, ask questions, earn points." },
+      { property: "og:title", content: "Welcome to Docly" },
+      { property: "og:description", content: "Get started with Docly: by students, for students. Share notes, ask questions, earn points." },
+      { property: "og:url", content: "https://docly-web-app.lovable.app/onboarding" },
+    ],
+    links: [{ rel: "canonical", href: "https://docly-web-app.lovable.app/onboarding" }],
+  }),
   component: OnboardingPage,
 });
 

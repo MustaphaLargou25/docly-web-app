@@ -11,6 +11,16 @@ import { useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
+  head: () => ({
+    meta: [
+      { title: "Docly — Share notes & ace your courses" },
+      { name: "description", content: "Docly is the student community for sharing course notes, asking questions, and earning points by helping classmates. By students. For students." },
+      { property: "og:title", content: "Docly — Share notes & ace your courses" },
+      { property: "og:description", content: "Share course notes, ask questions, and earn points with the Docly student community." },
+      { property: "og:url", content: "https://docly-web-app.lovable.app/" },
+    ],
+    links: [{ rel: "canonical", href: "https://docly-web-app.lovable.app/" }],
+  }),
 });
 
 function HomePage() {
@@ -20,6 +30,8 @@ function HomePage() {
 
   return (
     <AppLayout>
+      <h1 className="sr-only">Docly — The student community for sharing course notes and study resources</h1>
+
       {/* Greeting */}
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
@@ -41,10 +53,14 @@ function HomePage() {
       >
         <div className="relative">
           <Search className="absolute start-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <label htmlFor="docly-home-search" className="sr-only">{t("search")}</label>
           <input
+            id="docly-home-search"
+            type="search"
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder={t("search") + "…"}
+            aria-label={t("search")}
             className="w-full h-11 ps-11 pe-4 rounded-full bg-input-bg text-[14px] placeholder:text-muted-foreground border-0"
           />
         </div>

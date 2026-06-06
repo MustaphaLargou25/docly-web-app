@@ -11,6 +11,16 @@ import { z } from "zod";
 const searchSchema = z.object({ q: z.string().optional() });
 
 export const Route = createFileRoute("/search")({
+  head: () => ({
+    meta: [
+      { title: "Search documents & students \u2014 Docly" },
+      { name: "description", content: "Search across course documents, students, and subjects shared by the Docly student community." },
+      { property: "og:title", content: "Search documents & students \u2014 Docly" },
+      { property: "og:description", content: "Search across course documents, students, and subjects shared by the Docly student community." },
+      { property: "og:url", content: "https://docly-web-app.lovable.app/search" },
+    ],
+    links: [{ rel: "canonical", href: "https://docly-web-app.lovable.app/search" }],
+  }),
   validateSearch: searchSchema,
   component: SearchPage,
 });
@@ -32,10 +42,14 @@ function SearchPage() {
       <form className="mb-4">
         <div className="relative">
           <SearchIcon className="absolute start-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <label htmlFor="docly-search-input" className="sr-only">Search documents, users and subjects</label>
           <input
+            id="docly-search-input"
+            type="search"
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search documents, users, subjects…"
+            aria-label="Search documents, users and subjects"
             className="w-full h-12 ps-11 pe-4 rounded-full bg-input-bg text-[14px] placeholder:text-muted-foreground border-0"
           />
         </div>

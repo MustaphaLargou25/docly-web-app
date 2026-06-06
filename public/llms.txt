@@ -1,0 +1,20 @@
+# Docly
+
+> By students. For students. Docly is a student community for sharing course notes, asking questions, and earning points by helping classmates.
+
+Docly lets university students upload and download course documents (notes, past exams, summaries), follow modules, discuss questions in a community feed, and chat with peers. The app supports English, French, and Arabic with full RTL.
+
+## Pages
+
+- [Home](/): University banner, recent uploads, browse modules.
+- [Search](/search): Search documents, users, and subjects across the platform.
+- [Library](/library): Personal library — downloads, uploads, and saved documents.
+- [Community](/community): Student feed of posts and questions.
+- [Upload](/upload): Publish a new document and earn points.
+- [Sign in](/signin): Sign in to your Docly account.
+- [Create account](/register): Join the Docly student community.
+
+## Optional
+
+- [Notifications](/notifications): Activity and follow updates.
+- [Settings](/settings): Language, theme, and account preferences.
