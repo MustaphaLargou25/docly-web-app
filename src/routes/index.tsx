@@ -13,6 +13,7 @@ export const Route = createFileRoute("/")({
   component: HomePage,
   head: () => ({
     meta: [
+      { name: "google-site-verification", content: "Z5OvHMC_JPOiK6xGKkg74eAhiE4M6IgCjHJd-13qGkw" },
       { title: "Docly — Share notes & ace your courses" },
       { name: "description", content: "Docly is the student community for sharing course notes, asking questions, and earning points by helping classmates. By students. For students." },
       { property: "og:title", content: "Docly — Share notes & ace your courses" },
