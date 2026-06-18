@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UploadRouteImport } from './routes/upload'
+import { Route as TrustRouteImport } from './routes/trust'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SigninRouteImport } from './routes/signin'
 import { Route as SettingsRouteImport } from './routes/settings'
@@ -28,6 +29,11 @@ import { Route as MessagesChatIdRouteImport } from './routes/messages.$chatId'
 const UploadRoute = UploadRouteImport.update({
   id: '/upload',
   path: '/upload',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrustRoute = TrustRouteImport.update({
+  id: '/trust',
+  path: '/trust',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -114,6 +120,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof SettingsRoute
   '/signin': typeof SigninRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/trust': typeof TrustRoute
   '/upload': typeof UploadRoute
   '/messages/$chatId': typeof MessagesChatIdRoute
   '/profile/$userId': typeof ProfileUserIdRoute
@@ -131,6 +138,7 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsRoute
   '/signin': typeof SigninRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/trust': typeof TrustRoute
   '/upload': typeof UploadRoute
   '/messages/$chatId': typeof MessagesChatIdRoute
   '/profile/$userId': typeof ProfileUserIdRoute
@@ -149,6 +157,7 @@ export interface FileRoutesById {
   '/settings': typeof SettingsRoute
   '/signin': typeof SigninRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/trust': typeof TrustRoute
   '/upload': typeof UploadRoute
   '/messages/$chatId': typeof MessagesChatIdRoute
   '/profile/$userId': typeof ProfileUserIdRoute
@@ -168,6 +177,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/signin'
     | '/sitemap.xml'
+    | '/trust'
     | '/upload'
     | '/messages/$chatId'
     | '/profile/$userId'
@@ -185,6 +195,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/signin'
     | '/sitemap.xml'
+    | '/trust'
     | '/upload'
     | '/messages/$chatId'
     | '/profile/$userId'
@@ -202,6 +213,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/signin'
     | '/sitemap.xml'
+    | '/trust'
     | '/upload'
     | '/messages/$chatId'
     | '/profile/$userId'
@@ -220,6 +232,7 @@ export interface RootRouteChildren {
   SettingsRoute: typeof SettingsRoute
   SigninRoute: typeof SigninRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TrustRoute: typeof TrustRoute
   UploadRoute: typeof UploadRoute
 }
 
@@ -230,6 +243,13 @@ declare module '@tanstack/react-router' {
       path: '/upload'
       fullPath: '/upload'
       preLoaderRoute: typeof UploadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trust': {
+      id: '/trust'
+      path: '/trust'
+      fullPath: '/trust'
+      preLoaderRoute: typeof TrustRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -369,18 +389,9 @@ const rootRouteChildren: RootRouteChildren = {
   SettingsRoute: SettingsRoute,
   SigninRoute: SigninRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TrustRoute: TrustRoute,
   UploadRoute: UploadRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
