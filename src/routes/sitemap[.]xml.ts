@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { contacts } from "@/lib/mock-data";
+import { contacts, topContributors } from "@/lib/mock-data";
 
 const BASE_URL = "https://docly-web-app.lovable.app";
 
