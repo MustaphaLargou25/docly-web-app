@@ -8,7 +8,7 @@ import { PostCard } from "@/components/PostCards";
 import { documents, posts, topContributors, currentUser } from "@/lib/mock-data";
 import { ExternalLink, Mail, MapPin, GraduationCap, Calendar } from "lucide-react";
 
-export const Route = createFileRoute("/profile/$userId")({
+export const Route = createFileRoute("/_authenticated/profile/$userId")({
   head: ({ params }) => {
     const user = topContributors.find((u) => u.id === params.userId) ?? { id: params.userId, name: "Student", initials: "S", points: 0 };
     const title = `${user.name} \u2014 Docly profile`;

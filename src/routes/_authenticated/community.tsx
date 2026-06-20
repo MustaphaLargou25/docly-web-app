@@ -10,7 +10,7 @@ import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import { useState } from "react";
 
-export const Route = createFileRoute("/community")({
+export const Route = createFileRoute("/_authenticated/community")({
   head: () => ({
     meta: [
       { title: "Community feed \u2014 Docly" },

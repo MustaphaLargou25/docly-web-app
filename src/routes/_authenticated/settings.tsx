@@ -7,7 +7,7 @@ import { useLang, type Lang } from "@/lib/i18n";
 import { useTheme } from "@/lib/theme";
 import { Moon, Sun } from "lucide-react";
 
-export const Route = createFileRoute("/settings")({
+export const Route = createFileRoute("/_authenticated/settings")({
   head: () => ({
     meta: [
       { title: "Settings \u2014 Docly" },

@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/register")({
   head: () => ({
@@ -24,6 +25,31 @@ export const Route = createFileRoute("/register")({
 function RegisterPage() {
   const navigate = useNavigate();
   const [accept, setAccept] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!accept) return toast.error("Please accept the terms");
+    setLoading(true);
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: window.location.origin,
+        data: { display_name: name },
+      },
+    });
+    setLoading(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    toast.success("Account created");
+    navigate({ to: "/" });
+  }
 
   return (
     <div className="min-h-screen flex flex-col md:items-center md:justify-center bg-background px-5 py-8">
@@ -34,26 +60,18 @@ function RegisterPage() {
           <p className="text-[13px] text-muted-foreground mt-1">Join the student community</p>
         </div>
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (!accept) return toast.error("Please accept the terms");
-            toast.success("Account created");
-            navigate({ to: "/" });
-          }}
-          className="space-y-3"
-        >
+        <form onSubmit={handleSubmit} className="space-y-3">
           <div className="space-y-1.5">
             <Label htmlFor="name" className="text-[12px] font-medium">Full name</Label>
-            <Input id="name" required placeholder="Youssef Amrani" />
+            <Input id="name" required value={name} onChange={(e) => setName(e.target.value)} placeholder="Youssef Amrani" />
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="email" className="text-[12px] font-medium">Email</Label>
-            <Input id="email" type="email" required placeholder="you@university.edu" />
+            <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@university.edu" />
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="password" className="text-[12px] font-medium">Password</Label>
-            <Input id="password" type="password" required placeholder="At least 8 characters" />
+            <Input id="password" type="password" required minLength={8} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 8 characters" />
           </div>
           <label className="flex items-start gap-2 pt-1">
             <Checkbox checked={accept} onCheckedChange={(v) => setAccept(Boolean(v))} className="mt-0.5" />
@@ -62,7 +80,9 @@ function RegisterPage() {
               <span className="text-primary font-medium">Privacy Policy</span>.
             </span>
           </label>
-          <Button type="submit" className="w-full" size="lg">Create account</Button>
+          <Button type="submit" className="w-full" size="lg" disabled={loading}>
+            {loading ? "Creating account..." : "Create account"}
+          </Button>
         </form>
 
         <p className="text-center text-[13px] text-muted-foreground mt-6">

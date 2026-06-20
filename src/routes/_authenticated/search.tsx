@@ -10,7 +10,7 @@ import { z } from "zod";
 
 const searchSchema = z.object({ q: z.string().optional() });
 
-export const Route = createFileRoute("/search")({
+export const Route = createFileRoute("/_authenticated/search")({
   head: () => ({
     meta: [
       { title: "Search documents & students \u2014 Docly" },

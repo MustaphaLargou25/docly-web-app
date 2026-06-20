@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowUp, Paperclip, Smile } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/messages/$chatId")({
+export const Route = createFileRoute("/_authenticated/messages/$chatId")({
   head: ({ params }) => {
     const contact = contacts.find((c) => c.id === params.chatId);
     const name = contact?.name ?? "Chat";

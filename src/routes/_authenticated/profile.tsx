@@ -1,11 +1,12 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { AppLayout } from "@/components/AppLayout";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { currentUser } from "@/lib/mock-data";
 import { Settings, Bell, LifeBuoy, LogOut, ChevronRight, UserPen, Sparkles } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/profile")({
+export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
     meta: [
       { title: "Your profile \u2014 Docly" },
@@ -68,10 +69,17 @@ function ProfilePage() {
             <ChevronRight className="h-4 w-4 text-muted-foreground" />
           </button>
         ))}
-        <Link to="/signin" className="w-full flex items-center gap-3 p-4 hover:bg-muted text-destructive">
+        <button
+          type="button"
+          onClick={async () => {
+            await supabase.auth.signOut();
+            navigate({ to: "/signin" });
+          }}
+          className="w-full flex items-center gap-3 p-4 hover:bg-muted text-destructive text-start"
+        >
           <LogOut className="h-5 w-5" />
           <span className="text-[14px] font-medium">Log out</span>
-        </Link>
+        </button>
       </nav>
     </AppLayout>
   );

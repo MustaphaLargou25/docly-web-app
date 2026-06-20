@@ -3,7 +3,7 @@ import { AppLayout } from "@/components/AppLayout";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { notifications } from "@/lib/mock-data";
 
-export const Route = createFileRoute("/notifications")({
+export const Route = createFileRoute("/_authenticated/notifications")({
   head: () => ({
     meta: [
       { title: "Notifications \u2014 Docly" },

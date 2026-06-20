@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { contacts } from "@/lib/mock-data";
 import { Search } from "lucide-react";
 
-export const Route = createFileRoute("/messages")({
+export const Route = createFileRoute("/_authenticated/messages")({
   head: () => ({
     meta: [
       { title: "Messages \u2014 Docly" },
