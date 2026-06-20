@@ -9,7 +9,7 @@ import { Search, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_authenticated/")({
   component: HomePage,
   head: () => ({
     meta: [

@@ -4,7 +4,7 @@ import { DocumentCard } from "@/components/DocumentCard";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { documents, currentUser } from "@/lib/mock-data";
 
-export const Route = createFileRoute("/library")({
+export const Route = createFileRoute("/_authenticated/library")({
   head: () => ({
     meta: [
       { title: "My library \u2014 Docly" },

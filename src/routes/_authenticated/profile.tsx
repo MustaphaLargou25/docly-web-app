@@ -5,7 +5,7 @@ import { currentUser } from "@/lib/mock-data";
 import { Settings, Bell, LifeBuoy, LogOut, ChevronRight, UserPen, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/profile")({
+export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
     meta: [
       { title: "Your profile \u2014 Docly" },
