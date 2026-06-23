@@ -7,6 +7,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
+import { getPostAuthRoute } from "@/lib/post-login";
 
 export const Route = createFileRoute("/signin")({
   head: () => ({
@@ -48,7 +49,8 @@ function SignInPage() {
       return;
     }
     toast.success("Signed in");
-    navigate({ to: "/" });
+    const dest = await getPostAuthRoute();
+    navigate({ to: dest });
   }
 
   async function handleGoogle() {
@@ -60,7 +62,8 @@ function SignInPage() {
       return;
     }
     if (result.redirected) return;
-    navigate({ to: "/" });
+    const dest = await getPostAuthRoute();
+    navigate({ to: dest });
   }
 
   return (

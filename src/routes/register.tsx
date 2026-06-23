@@ -53,7 +53,9 @@ function RegisterPage() {
       return;
     }
     toast.success("Account created");
-    navigate({ to: "/" });
+    const { getPostAuthRoute } = await import("@/lib/post-login");
+    const dest = await getPostAuthRoute();
+    navigate({ to: dest });
   }
 
   return (

@@ -25,18 +25,25 @@ function VerifyEmailPage() {
 
   useEffect(() => {
     let cancelled = false;
-    supabase.auth.getUser().then(({ data }) => {
+    import("@/lib/post-login").then(async ({ getPostAuthRoute }) => {
+      const { data } = await supabase.auth.getUser();
       if (cancelled) return;
       if (data.user?.email) setEmail(data.user.email);
       if (data.user?.email_confirmed_at) {
-        navigate({ to: "/profile" });
+        const dest = await getPostAuthRoute();
+        navigate({ to: dest });
         return;
       }
       setChecking(false);
     });
-    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (session?.user?.email_confirmed_at) navigate({ to: "/profile" });
-      else if (session?.user?.email) setEmail(session.user.email);
+    const { data: sub } = supabase.auth.onAuthStateChange(async (_e, session) => {
+      if (session?.user?.email_confirmed_at) {
+        const { getPostAuthRoute } = await import("@/lib/post-login");
+        const dest = await getPostAuthRoute();
+        navigate({ to: dest });
+      } else if (session?.user?.email) {
+        setEmail(session.user.email);
+      }
     });
     return () => {
       cancelled = true;

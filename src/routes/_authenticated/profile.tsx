@@ -27,32 +27,69 @@ function ProfilePage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string | null>(null);
   const [confirmed, setConfirmed] = useState<boolean | null>(null);
+  const [displayName, setDisplayName] = useState<string>(currentUser.name);
+  const [university, setUniversity] = useState<string>(currentUser.university);
+  const [program, setProgram] = useState<string>(currentUser.program);
+
+  async function loadProfile(userId: string, fallbackName?: string | null) {
+    const { data } = await supabase
+      .from("profiles")
+      .select("display_name, university, program")
+      .eq("id", userId)
+      .maybeSingle();
+    setDisplayName(data?.display_name || fallbackName || currentUser.name);
+    setUniversity(data?.university || "");
+    setProgram(data?.program || "");
+  }
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      setEmail(data.user?.email ?? null);
-      setConfirmed(!!data.user?.email_confirmed_at);
+      const user = data.user;
+      setEmail(user?.email ?? null);
+      setConfirmed(!!user?.email_confirmed_at);
+      if (user) {
+        const fallback =
+          (user.user_metadata?.display_name as string | undefined) ??
+          (user.user_metadata?.full_name as string | undefined) ??
+          (user.email ? user.email.split("@")[0] : null);
+        loadProfile(user.id, fallback);
+      }
     });
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
       setEmail(session?.user?.email ?? null);
       setConfirmed(!!session?.user?.email_confirmed_at);
+      if (session?.user) loadProfile(session.user.id, session.user.email ?? null);
     });
     return () => sub.subscription.unsubscribe();
   }, []);
+
+  const initials = (displayName || "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((s) => s[0]?.toUpperCase() ?? "")
+    .join("") || currentUser.initials;
 
   return (
     <AppLayout>
       <div className="flex flex-col items-center text-center mb-5">
         <Avatar className="h-24 w-24 mb-3">
-          <AvatarFallback className="bg-primary text-primary-foreground text-2xl font-bold">{currentUser.initials}</AvatarFallback>
+          <AvatarFallback className="bg-primary text-primary-foreground text-2xl font-bold">{initials}</AvatarFallback>
         </Avatar>
-        <h1 className="text-[22px] font-bold">{currentUser.name}</h1>
-        <p className="text-[13px] text-muted-foreground">{currentUser.university}</p>
-        <p className="text-[12px] text-muted-foreground">{currentUser.program}</p>
+        <h1 className="text-[22px] font-bold">{displayName}</h1>
+        {university ? (
+          <p className="text-[13px] text-muted-foreground">{university}</p>
+        ) : (
+          <Link to="/select-university" className="text-[13px] text-primary font-semibold">
+            Add your university
+          </Link>
+        )}
+        {program && <p className="text-[12px] text-muted-foreground">{program}</p>}
         {email && (
           <p className="text-[12px] text-muted-foreground mt-1">{email}</p>
         )}
       </div>
+
 
       {confirmed === false && (
         <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-4 mb-5 flex items-start gap-3">
