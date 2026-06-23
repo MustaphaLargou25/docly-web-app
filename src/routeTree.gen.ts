@@ -18,6 +18,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedUploadRouteImport } from './routes/_authenticated/upload'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedSelectUniversityRouteImport } from './routes/_authenticated/select-university'
 import { Route as AuthenticatedSearchRouteImport } from './routes/_authenticated/search'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
@@ -72,6 +73,12 @@ const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedSelectUniversityRoute =
+  AuthenticatedSelectUniversityRouteImport.update({
+    id: '/select-university',
+    path: '/select-university',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedSearchRoute = AuthenticatedSearchRouteImport.update({
   id: '/search',
   path: '/search',
@@ -135,6 +142,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/profile': typeof AuthenticatedProfileRouteWithChildren
   '/search': typeof AuthenticatedSearchRoute
+  '/select-university': typeof AuthenticatedSelectUniversityRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/upload': typeof AuthenticatedUploadRoute
   '/messages/$chatId': typeof AuthenticatedMessagesChatIdRoute
@@ -153,6 +161,7 @@ export interface FileRoutesByTo {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/profile': typeof AuthenticatedProfileRouteWithChildren
   '/search': typeof AuthenticatedSearchRoute
+  '/select-university': typeof AuthenticatedSelectUniversityRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/upload': typeof AuthenticatedUploadRoute
   '/': typeof AuthenticatedIndexRoute
@@ -174,6 +183,7 @@ export interface FileRoutesById {
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRouteWithChildren
   '/_authenticated/search': typeof AuthenticatedSearchRoute
+  '/_authenticated/select-university': typeof AuthenticatedSelectUniversityRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/upload': typeof AuthenticatedUploadRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
@@ -196,6 +206,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/profile'
     | '/search'
+    | '/select-university'
     | '/settings'
     | '/upload'
     | '/messages/$chatId'
@@ -214,6 +225,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/profile'
     | '/search'
+    | '/select-university'
     | '/settings'
     | '/upload'
     | '/'
@@ -234,6 +246,7 @@ export interface FileRouteTypes {
     | '/_authenticated/onboarding'
     | '/_authenticated/profile'
     | '/_authenticated/search'
+    | '/_authenticated/select-university'
     | '/_authenticated/settings'
     | '/_authenticated/upload'
     | '/_authenticated/'
@@ -313,6 +326,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/select-university': {
+      id: '/_authenticated/select-university'
+      path: '/select-university'
+      fullPath: '/select-university'
+      preLoaderRoute: typeof AuthenticatedSelectUniversityRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/search': {
@@ -413,6 +433,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRouteWithChildren
   AuthenticatedSearchRoute: typeof AuthenticatedSearchRoute
+  AuthenticatedSelectUniversityRoute: typeof AuthenticatedSelectUniversityRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedUploadRoute: typeof AuthenticatedUploadRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
@@ -426,6 +447,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRouteWithChildren,
   AuthenticatedSearchRoute: AuthenticatedSearchRoute,
+  AuthenticatedSelectUniversityRoute: AuthenticatedSelectUniversityRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedUploadRoute: AuthenticatedUploadRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
