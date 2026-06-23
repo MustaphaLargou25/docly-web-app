@@ -7,6 +7,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
+import { getPostAuthRoute } from "@/lib/post-login";
 
 export const Route = createFileRoute("/signin")({
   head: () => ({
