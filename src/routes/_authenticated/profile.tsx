@@ -1,10 +1,13 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { AppLayout } from "@/components/AppLayout";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { currentUser } from "@/lib/mock-data";
-import { Settings, Bell, LifeBuoy, LogOut, ChevronRight, UserPen, Sparkles } from "lucide-react";
+import { Settings, Bell, LifeBuoy, LogOut, ChevronRight, UserPen, Sparkles, Mail, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+
 
 export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
@@ -22,6 +25,21 @@ export const Route = createFileRoute("/_authenticated/profile")({
 
 function ProfilePage() {
   const navigate = useNavigate();
+  const [email, setEmail] = useState<string | null>(null);
+  const [confirmed, setConfirmed] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setEmail(data.user?.email ?? null);
+      setConfirmed(!!data.user?.email_confirmed_at);
+    });
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      setEmail(session?.user?.email ?? null);
+      setConfirmed(!!session?.user?.email_confirmed_at);
+    });
+    return () => sub.subscription.unsubscribe();
+  }, []);
+
   return (
     <AppLayout>
       <div className="flex flex-col items-center text-center mb-5">
@@ -31,7 +49,25 @@ function ProfilePage() {
         <h1 className="text-[22px] font-bold">{currentUser.name}</h1>
         <p className="text-[13px] text-muted-foreground">{currentUser.university}</p>
         <p className="text-[12px] text-muted-foreground">{currentUser.program}</p>
+        {email && (
+          <p className="text-[12px] text-muted-foreground mt-1">{email}</p>
+        )}
       </div>
+
+      {confirmed === false && (
+        <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-4 mb-5 flex items-start gap-3">
+          <AlertCircle className="h-5 w-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+          <div className="flex-1 text-start">
+            <p className="text-[14px] font-medium text-amber-900 dark:text-amber-100">Email not verified</p>
+            <p className="text-[13px] text-amber-800/80 dark:text-amber-200/80 mt-0.5">
+              Confirm your email to keep full access to your account.
+            </p>
+            <Button asChild variant="secondary" size="sm" className="mt-2">
+              <Link to="/verify-email">Verify email</Link>
+            </Button>
+          </div>
+        </div>
+      )}
 
       <div className="rounded-xl docly-gradient text-white p-5 mb-5 flex items-center justify-between">
         <div>
