@@ -1,10 +1,13 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { AppLayout } from "@/components/AppLayout";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { currentUser } from "@/lib/mock-data";
-import { Settings, Bell, LifeBuoy, LogOut, ChevronRight, UserPen, Sparkles } from "lucide-react";
+import { Settings, Bell, LifeBuoy, LogOut, ChevronRight, UserPen, Sparkles, Mail, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+
 
 export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
