@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VerifyEmailRouteImport } from './routes/verify-email'
 import { Route as TrustRouteImport } from './routes/trust'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SigninRouteImport } from './routes/signin'
@@ -27,6 +28,11 @@ import { Route as AuthenticatedCommunityRouteImport } from './routes/_authentica
 import { Route as AuthenticatedProfileUserIdRouteImport } from './routes/_authenticated/profile.$userId'
 import { Route as AuthenticatedMessagesChatIdRouteImport } from './routes/_authenticated/messages.$chatId'
 
+const VerifyEmailRoute = VerifyEmailRouteImport.update({
+  id: '/verify-email',
+  path: '/verify-email',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TrustRoute = TrustRouteImport.update({
   id: '/trust',
   path: '/trust',
@@ -121,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/signin': typeof SigninRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/trust': typeof TrustRoute
+  '/verify-email': typeof VerifyEmailRoute
   '/community': typeof AuthenticatedCommunityRoute
   '/library': typeof AuthenticatedLibraryRoute
   '/messages': typeof AuthenticatedMessagesRouteWithChildren
@@ -138,6 +145,7 @@ export interface FileRoutesByTo {
   '/signin': typeof SigninRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/trust': typeof TrustRoute
+  '/verify-email': typeof VerifyEmailRoute
   '/community': typeof AuthenticatedCommunityRoute
   '/library': typeof AuthenticatedLibraryRoute
   '/messages': typeof AuthenticatedMessagesRouteWithChildren
@@ -158,6 +166,7 @@ export interface FileRoutesById {
   '/signin': typeof SigninRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/trust': typeof TrustRoute
+  '/verify-email': typeof VerifyEmailRoute
   '/_authenticated/community': typeof AuthenticatedCommunityRoute
   '/_authenticated/library': typeof AuthenticatedLibraryRoute
   '/_authenticated/messages': typeof AuthenticatedMessagesRouteWithChildren
@@ -179,6 +188,7 @@ export interface FileRouteTypes {
     | '/signin'
     | '/sitemap.xml'
     | '/trust'
+    | '/verify-email'
     | '/community'
     | '/library'
     | '/messages'
@@ -196,6 +206,7 @@ export interface FileRouteTypes {
     | '/signin'
     | '/sitemap.xml'
     | '/trust'
+    | '/verify-email'
     | '/community'
     | '/library'
     | '/messages'
@@ -215,6 +226,7 @@ export interface FileRouteTypes {
     | '/signin'
     | '/sitemap.xml'
     | '/trust'
+    | '/verify-email'
     | '/_authenticated/community'
     | '/_authenticated/library'
     | '/_authenticated/messages'
@@ -235,10 +247,18 @@ export interface RootRouteChildren {
   SigninRoute: typeof SigninRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TrustRoute: typeof TrustRoute
+  VerifyEmailRoute: typeof VerifyEmailRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/verify-email': {
+      id: '/verify-email'
+      path: '/verify-email'
+      fullPath: '/verify-email'
+      preLoaderRoute: typeof VerifyEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/trust': {
       id: '/trust'
       path: '/trust'
@@ -420,6 +440,7 @@ const rootRouteChildren: RootRouteChildren = {
   SigninRoute: SigninRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TrustRoute: TrustRoute,
+  VerifyEmailRoute: VerifyEmailRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
