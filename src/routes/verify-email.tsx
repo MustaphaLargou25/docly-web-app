@@ -29,13 +29,13 @@ function VerifyEmailPage() {
       if (cancelled) return;
       if (data.user?.email) setEmail(data.user.email);
       if (data.user?.email_confirmed_at) {
-        navigate({ to: "/" });
+        navigate({ to: "/profile" });
         return;
       }
       setChecking(false);
     });
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (session?.user?.email_confirmed_at) navigate({ to: "/" });
+      if (session?.user?.email_confirmed_at) navigate({ to: "/profile" });
       else if (session?.user?.email) setEmail(session.user.email);
     });
     return () => {
