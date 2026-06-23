@@ -49,7 +49,8 @@ function SignInPage() {
       return;
     }
     toast.success("Signed in");
-    navigate({ to: "/" });
+    const dest = await getPostAuthRoute();
+    navigate({ to: dest });
   }
 
   async function handleGoogle() {
@@ -61,7 +62,8 @@ function SignInPage() {
       return;
     }
     if (result.redirected) return;
-    navigate({ to: "/" });
+    const dest = await getPostAuthRoute();
+    navigate({ to: dest });
   }
 
   return (
