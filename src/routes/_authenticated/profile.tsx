@@ -70,6 +70,27 @@ function ProfilePage() {
     .map((s) => s[0]?.toUpperCase() ?? "")
     .join("") || currentUser.initials;
 
+  return (
+    <AppLayout>
+      <div className="flex flex-col items-center text-center mb-5">
+        <Avatar className="h-24 w-24 mb-3">
+          <AvatarFallback className="bg-primary text-primary-foreground text-2xl font-bold">{initials}</AvatarFallback>
+        </Avatar>
+        <h1 className="text-[22px] font-bold">{displayName}</h1>
+        {university ? (
+          <p className="text-[13px] text-muted-foreground">{university}</p>
+        ) : (
+          <Link to="/select-university" className="text-[13px] text-primary font-semibold">
+            Add your university
+          </Link>
+        )}
+        {program && <p className="text-[12px] text-muted-foreground">{program}</p>}
+        {email && (
+          <p className="text-[12px] text-muted-foreground mt-1">{email}</p>
+        )}
+      </div>
+
+
       {confirmed === false && (
         <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 p-4 mb-5 flex items-start gap-3">
           <AlertCircle className="h-5 w-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
