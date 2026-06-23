@@ -31,10 +31,20 @@ function SignInPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) {
+      if (error.message.toLowerCase().includes("confirm")) {
+        toast.error("Please verify your email first");
+        navigate({ to: "/verify-email" });
+        return;
+      }
       toast.error(error.message);
+      return;
+    }
+    if (data.user && !data.user.email_confirmed_at) {
+      toast.message("Please verify your email to continue");
+      navigate({ to: "/verify-email" });
       return;
     }
     toast.success("Signed in");

@@ -34,7 +34,7 @@ function RegisterPage() {
     e.preventDefault();
     if (!accept) return toast.error("Please accept the terms");
     setLoading(true);
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -45,6 +45,11 @@ function RegisterPage() {
     setLoading(false);
     if (error) {
       toast.error(error.message);
+      return;
+    }
+    if (data.user && !data.user.email_confirmed_at) {
+      toast.success("Check your inbox to confirm your email");
+      navigate({ to: "/verify-email" });
       return;
     }
     toast.success("Account created");
