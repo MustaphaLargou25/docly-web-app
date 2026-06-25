@@ -3,12 +3,13 @@ import { Home, BookMarked, Users, User, Settings, MessageCircle, Plus, LogOut } 
 import { Logo } from "./Logo";
 import { useLang } from "@/lib/i18n";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { currentUser } from "@/lib/mock-data";
+import { useCurrentProfile } from "@/lib/use-current-profile";
 import { cn } from "@/lib/utils";
 
 export function Sidebar() {
   const { t } = useLang();
   const path = useRouterState({ select: (s) => s.location.pathname });
+  const profile = useCurrentProfile();
 
   const items = [
     { to: "/", label: t("home"), icon: Home, exact: true },
@@ -66,12 +67,14 @@ export function Sidebar() {
         <Link to="/profile" className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted">
           <Avatar className="h-9 w-9">
             <AvatarFallback className="bg-primary text-primary-foreground text-xs font-semibold">
-              {currentUser.initials}
+              {profile.initials}
             </AvatarFallback>
           </Avatar>
           <div className="min-w-0 flex-1">
-            <div className="text-[13px] font-semibold truncate">{currentUser.name}</div>
-            <div className="text-[11px] text-muted-foreground truncate">{currentUser.program}</div>
+            <div className="text-[13px] font-semibold truncate">{profile.displayName || "—"}</div>
+            <div className="text-[11px] text-muted-foreground truncate">
+              {profile.program || profile.university || profile.email}
+            </div>
           </div>
           <LogOut className="h-4 w-4 text-muted-foreground" />
         </Link>
