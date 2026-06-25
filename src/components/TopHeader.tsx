@@ -4,6 +4,7 @@ import { Logo } from "./Logo";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { currentUser, notifications } from "@/lib/mock-data";
+import { useCurrentProfile } from "@/lib/use-current-profile";
 import { useLang } from "@/lib/i18n";
 import {
   DropdownMenu,
@@ -18,6 +19,7 @@ export function TopHeader() {
   const { t } = useLang();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
+  const profile = useCurrentProfile();
   const unreadCount = notifications.filter((n) => n.unread).length;
 
   return (
@@ -81,14 +83,14 @@ export function TopHeader() {
           <DropdownMenuTrigger asChild>
             <button className="h-10 w-10 rounded-full overflow-hidden" aria-label="Profile menu">
               <Avatar className="h-10 w-10">
-                <AvatarFallback className="bg-primary text-primary-foreground text-sm font-semibold">{currentUser.initials}</AvatarFallback>
+                <AvatarFallback className="bg-primary text-primary-foreground text-sm font-semibold">{profile.initials}</AvatarFallback>
               </Avatar>
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
             <div className="px-2 py-2">
-              <div className="text-[13px] font-semibold">{currentUser.name}</div>
-              <div className="text-[11px] text-muted-foreground">{currentUser.email}</div>
+              <div className="text-[13px] font-semibold">{profile.displayName || "—"}</div>
+              <div className="text-[11px] text-muted-foreground">{profile.email}</div>
             </div>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild><Link to="/profile">{t("profile")}</Link></DropdownMenuItem>
